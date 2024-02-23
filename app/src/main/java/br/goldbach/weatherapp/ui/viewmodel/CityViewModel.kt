@@ -16,19 +16,19 @@ import javax.inject.Inject
 class CityViewModel @Inject constructor(private val repository: WeatherRepository) : ViewModel() {
 
     private var cityLiveData = MutableLiveData<City>()
-    private var citiesLiveData = MutableLiveData<TodayWeather>()
+    private var citiesLiveData = MutableLiveData<List<TodayWeather>>()
 
-//    private var listOfCitiesToSearch: List<String> = listOf(
-//        "Berlin",
-//        "Lisbon",
-//        "Stalingrad",
-//        "Prague",
-//        "Sao Paulo",
-//        "Buenos Aires",
-//        "Hong Kong"
-//    )
-//
-//    private var cityList: MutableLiveData<TodayWeather> = MutableLiveData()
+    private var listOfCitiesToSearch: List<String> = listOf(
+        "Berlin",
+        "Lisbon",
+        "Stalingrad",
+        "Prague",
+        "Sao Paulo",
+        "Buenos Aires",
+        "Hong Kong"
+    )
+
+    private var cityList: ArrayList<TodayWeather> = ArrayList()
 
     fun fetchCity(cityName: String) {
         viewModelScope.launch {
@@ -42,23 +42,26 @@ class CityViewModel @Inject constructor(private val repository: WeatherRepositor
         }
     }
 
-//    fun fetchTodayWeatherCities() {
-//        viewModelScope.launch {
-//            try {
-//                listOfCitiesToSearch.map {
-//                    val response = repository.getCurrentWeather(it, "no")
-//                    cityList.add(response.body()!!)
-//                }
-//                citiesLiveData.postValue(cityList)
-//            }
-//        }
-//    }
+    fun fetchTodayWeatherCities() {
+        viewModelScope.launch {
+            try {
+                listOfCitiesToSearch.map {
+                    val response = repository.getCurrentWeather(it, "no")
+                    cityList.add(response.body()!!)
+                }
+                citiesLiveData.postValue(cityList)
+            } catch (e: Exception) {
+                throw RuntimeException("Api call failed : ${e.message}", e)
+            }
+        }
+    }
 
     fun observeCityLiveData(): LiveData<City> {
         return cityLiveData
     }
 
-    fun observeCitiesLiveData() : LiveData<TodayWeather> {
+    fun observeCitiesLiveData() : LiveData<List<TodayWeather>> {
         return citiesLiveData
     }
+
 }

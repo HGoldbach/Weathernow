@@ -2,6 +2,7 @@ package br.goldbach.weatherapp.data
 
 import br.goldbach.weatherapp.data.model.City
 import br.goldbach.weatherapp.data.model.ForecastWeather
+import br.goldbach.weatherapp.data.model.TodayWeather
 import br.goldbach.weatherapp.data.repository.WeatherRepository
 import br.goldbach.weatherapp.data.repository.WeatherRepositoryImpl
 import br.goldbach.weatherapp.data.server.ApiClient
@@ -45,6 +46,11 @@ object AppModule {
 
     @Provides
     fun provideForecastDates() :  List<String> {
+        return ArrayList()
+    }
+
+    @Provides
+    fun provideCities() : List<TodayWeather> {
         return ArrayList()
     }
 
