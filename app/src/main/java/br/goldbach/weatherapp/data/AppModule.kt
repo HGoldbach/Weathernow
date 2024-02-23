@@ -1,17 +1,52 @@
 package br.goldbach.weatherapp.data
 
+import br.goldbach.weatherapp.data.model.City
+import br.goldbach.weatherapp.data.model.ForecastWeather
 import br.goldbach.weatherapp.data.repository.WeatherRepository
+import br.goldbach.weatherapp.data.repository.WeatherRepositoryImpl
 import br.goldbach.weatherapp.data.server.ApiClient
 import br.goldbach.weatherapp.data.server.ApiServices
-import br.goldbach.weatherapp.ui.viewmodel.CityViewModel
-import br.goldbach.weatherapp.ui.viewmodel.MainViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-val appModule = module {
-    viewModel { MainViewModel(get()) }
-    viewModel { CityViewModel(get()) }
-    single<WeatherRepository> { WeatherRepository(get())}
-    single { ApiClient().getClient().create(ApiServices::class.java) }
+@InstallIn(SingletonComponent::class)
+@Module
+object AppModule {
+
+    @Singleton
+    @Provides
+    fun provideWeatherRepository(api: ApiServices) : WeatherRepository {
+        return WeatherRepositoryImpl(api)
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiServices() : ApiServices {
+        return ApiClient().getClient().create(ApiServices::class.java)
+    }
+
+    @Provides
+    fun provideCityList() : List<City.CityItem> {
+        return ArrayList()
+    }
+
+    @Provides
+    fun provideForecastDayHours() : List<ForecastWeather.Forecast.Forecastday.Hour> {
+        return ArrayList()
+    }
+
+    @Provides
+    fun provideForecastDays() : List<ForecastWeather.Forecast.Forecastday.Day> {
+        return ArrayList()
+    }
+
+    @Provides
+    fun provideForecastDates() :  List<String> {
+        return ArrayList()
+    }
+
 
 }

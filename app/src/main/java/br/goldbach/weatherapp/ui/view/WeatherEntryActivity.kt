@@ -1,25 +1,26 @@
 package br.goldbach.weatherapp.ui.view
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.goldbach.weatherapp.R
 import br.goldbach.weatherapp.data.model.City
 import br.goldbach.weatherapp.databinding.ActivityWeatherEntryBinding
 import br.goldbach.weatherapp.ui.adapter.CityAdapter
 import br.goldbach.weatherapp.ui.viewmodel.CityViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class WeatherEntryActivity : AppCompatActivity() {
 
-    private var cityAdapter = CityAdapter(listOf(),this)
+    @Inject lateinit var cityAdapter: CityAdapter
     private lateinit var binding: ActivityWeatherEntryBinding
-    private val cityViewModel: CityViewModel by viewModel()
+    private val cityViewModel: CityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

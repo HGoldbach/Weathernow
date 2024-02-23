@@ -1,8 +1,11 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("kotlin-parcelize")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -18,7 +21,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String","API_KEY","\"${project.properties["API_KEY"]}\"")
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+        buildConfigField("String","API_KEY", properties.getProperty("API_KEY"))
 
     }
 
@@ -57,6 +62,10 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.8.2")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.46")
+    kapt("com.google.dagger:hilt-android-compiler:2.46")
 
     // Koin
     implementation("io.insert-koin:koin-android:3.5.3")

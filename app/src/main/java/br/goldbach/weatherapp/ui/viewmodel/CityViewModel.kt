@@ -5,12 +5,30 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.goldbach.weatherapp.data.model.City
+import br.goldbach.weatherapp.data.model.TodayWeather
 import br.goldbach.weatherapp.data.repository.WeatherRepository
+import br.goldbach.weatherapp.data.repository.WeatherRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CityViewModel(private val repository: WeatherRepository) : ViewModel() {
+@HiltViewModel
+class CityViewModel @Inject constructor(private val repository: WeatherRepository) : ViewModel() {
 
     private var cityLiveData = MutableLiveData<City>()
+    private var citiesLiveData = MutableLiveData<TodayWeather>()
+
+//    private var listOfCitiesToSearch: List<String> = listOf(
+//        "Berlin",
+//        "Lisbon",
+//        "Stalingrad",
+//        "Prague",
+//        "Sao Paulo",
+//        "Buenos Aires",
+//        "Hong Kong"
+//    )
+//
+//    private var cityList: MutableLiveData<TodayWeather> = MutableLiveData()
 
     fun fetchCity(cityName: String) {
         viewModelScope.launch {
@@ -24,7 +42,23 @@ class CityViewModel(private val repository: WeatherRepository) : ViewModel() {
         }
     }
 
+//    fun fetchTodayWeatherCities() {
+//        viewModelScope.launch {
+//            try {
+//                listOfCitiesToSearch.map {
+//                    val response = repository.getCurrentWeather(it, "no")
+//                    cityList.add(response.body()!!)
+//                }
+//                citiesLiveData.postValue(cityList)
+//            }
+//        }
+//    }
+
     fun observeCityLiveData(): LiveData<City> {
         return cityLiveData
+    }
+
+    fun observeCitiesLiveData() : LiveData<TodayWeather> {
+        return citiesLiveData
     }
 }

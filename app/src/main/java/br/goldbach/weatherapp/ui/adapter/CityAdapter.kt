@@ -11,14 +11,22 @@ import br.goldbach.weatherapp.R
 import br.goldbach.weatherapp.data.model.City
 import br.goldbach.weatherapp.databinding.CityViewholderBinding
 import br.goldbach.weatherapp.ui.view.MainActivity
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CityAdapter(
+@InstallIn(ActivityComponent::class)
+@Module
+class CityAdapter @Inject constructor(
     private var cities: List<City.CityItem>,
-    private var context: Context
+    @ActivityContext private val context: Context
 ) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater : View = LayoutInflater.from(context).inflate(R.layout.city_viewholder, parent, false)
-        context = parent.context
         return ViewHolder(inflater)
     }
 

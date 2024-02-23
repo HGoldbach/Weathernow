@@ -11,11 +11,18 @@ import androidx.recyclerview.widget.RecyclerView
 import br.goldbach.weatherapp.R
 import br.goldbach.weatherapp.data.model.ForecastWeather
 import com.squareup.picasso.Picasso
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.qualifiers.ActivityContext
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
-class ForecastTodayAdapter(
+@InstallIn(ActivityComponent::class)
+@Module
+class ForecastTodayAdapter @Inject constructor(
     private var forecastHours: List<ForecastWeather.Forecast.Forecastday.Hour?>?,
-    private var context: Context
+    @ActivityContext private val context: Context
 ) : RecyclerView.Adapter<ForecastTodayAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -24,7 +31,6 @@ class ForecastTodayAdapter(
     ): ViewHolder {
         val inflater: View =
             LayoutInflater.from(context).inflate(R.layout.forecastday_viewholder, parent, false)
-        context = parent.context
         return ViewHolder(inflater)
     }
 

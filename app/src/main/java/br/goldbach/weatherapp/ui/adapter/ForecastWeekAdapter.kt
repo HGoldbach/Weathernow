@@ -13,13 +13,20 @@ import androidx.recyclerview.widget.RecyclerView
 import br.goldbach.weatherapp.R
 import br.goldbach.weatherapp.data.model.ForecastWeather
 import com.squareup.picasso.Picasso
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.qualifiers.ActivityContext
 import java.time.LocalDate
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
-class ForecastWeekAdapter(
+@InstallIn(ActivityComponent::class)
+@Module
+class ForecastWeekAdapter @Inject constructor(
     private var days: List<ForecastWeather.Forecast.Forecastday.Day?>?,
-    private var dates: List<String?>? = listOf(),
-    private var context: Context
+    private var dates: List<String?>?,
+    @ActivityContext private val context: Context
 ) : RecyclerView.Adapter<ForecastWeekAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -27,7 +34,6 @@ class ForecastWeekAdapter(
     ): ViewHolder {
         val inflater: View =
             LayoutInflater.from(context).inflate(R.layout.forecastweek_viewholder, parent, false)
-        context = parent.context
         return ViewHolder(inflater)
     }
 

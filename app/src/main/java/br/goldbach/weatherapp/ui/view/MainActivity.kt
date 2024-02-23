@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,16 +18,18 @@ import br.goldbach.weatherapp.ui.adapter.ForecastTodayAdapter
 import br.goldbach.weatherapp.ui.adapter.ForecastWeekAdapter
 import br.goldbach.weatherapp.ui.viewmodel.MainViewModel
 import com.squareup.picasso.Picasso
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val mainViewModel: MainViewModel by viewModel()
-    private var forecastTodayAdapter: ForecastTodayAdapter = ForecastTodayAdapter(listOf(), this@MainActivity)
-    private var forecastWeekAdapter: ForecastWeekAdapter = ForecastWeekAdapter(listOf(), listOf(), this@MainActivity)
+    private val mainViewModel: MainViewModel by viewModels()
+    @Inject lateinit var forecastTodayAdapter: ForecastTodayAdapter
+    @Inject lateinit var forecastWeekAdapter: ForecastWeekAdapter
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {

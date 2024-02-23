@@ -9,10 +9,14 @@ import androidx.lifecycle.viewModelScope
 import br.goldbach.weatherapp.data.model.ForecastWeather
 import br.goldbach.weatherapp.data.model.TodayWeather
 import br.goldbach.weatherapp.data.repository.WeatherRepository
+import br.goldbach.weatherapp.data.repository.WeatherRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
+import javax.inject.Inject
 
-class MainViewModel(private val repository: WeatherRepository) : ViewModel(){
+@HiltViewModel
+class MainViewModel @Inject constructor(private val repository: WeatherRepository) : ViewModel(){
 
     private var todayWeatherLiveData = MutableLiveData<TodayWeather>()
     private var forecastTodayLiveData = MutableLiveData<ForecastWeather>()
