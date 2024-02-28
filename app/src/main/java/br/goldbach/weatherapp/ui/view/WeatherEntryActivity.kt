@@ -4,7 +4,9 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,12 +43,22 @@ class WeatherEntryActivity : AppCompatActivity() {
         observerCity()
         loadCities()
         observerCities()
+        observerConnection()
         setRecycler()
 
     }
 
+    private fun observerConnection() {
+        cityViewModel.connectionError.observe(this@WeatherEntryActivity) {
+            if(it) {
+                Toast.makeText(this, "Connection failed. Check your internet connection!", Toast.LENGTH_SHORT).show()
+            }
+        } 
+    }
+
     private fun observerCities() {
-        cityViewModel.observeCitiesLiveData().observe(this@WeatherEntryActivity) {
+        cityViewModel.citiesLiveData.observe(this@WeatherEntryActivity) {
+            binding.progressBar2.visibility = View.GONE
             setAdapterCities(it)
         }
     }
@@ -56,6 +68,7 @@ class WeatherEntryActivity : AppCompatActivity() {
     }
 
     private fun loadCities() {
+        binding.progressBar2.visibility = View.VISIBLE
         cityViewModel.fetchTodayWeatherCities()
     }
 
@@ -79,7 +92,7 @@ class WeatherEntryActivity : AppCompatActivity() {
     }
 
     private fun observerCity() {
-        cityViewModel.observeCityLiveData().observe(this@WeatherEntryActivity) {
+        cityViewModel.cityLiveData.observe(this@WeatherEntryActivity) {
             setAdapter(it)
         }
     }

@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import br.goldbach.weatherapp.R
-import br.goldbach.weatherapp.data.model.ForecastWeather
+import br.goldbach.weatherapp.data.model.Day
 import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -24,7 +24,7 @@ import kotlin.math.roundToInt
 @InstallIn(ActivityComponent::class)
 @Module
 class ForecastWeekAdapter @Inject constructor(
-    private var days: List<ForecastWeather.Forecast.Forecastday.Day?>?,
+    private var days: List<Day?>?,
     private var dates: List<String?>?,
     @ActivityContext private val context: Context
 ) : RecyclerView.Adapter<ForecastWeekAdapter.ViewHolder>() {
@@ -63,7 +63,7 @@ class ForecastWeekAdapter @Inject constructor(
         return days?.size ?: 0
     }
 
-    fun updateData(days: List<ForecastWeather.Forecast.Forecastday.Day?>?, dates: List<String?>?) {
+    fun updateData(days: List<Day?>?, dates: List<String?>?) {
         this.days = days
         this.dates = dates
         notifyDataSetChanged()

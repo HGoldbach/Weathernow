@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import br.goldbach.weatherapp.data.model.City
 import br.goldbach.weatherapp.data.model.TodayWeather
 import br.goldbach.weatherapp.data.repository.WeatherRepository
-import br.goldbach.weatherapp.data.repository.WeatherRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,8 +14,14 @@ import javax.inject.Inject
 @HiltViewModel
 class CityViewModel @Inject constructor(private val repository: WeatherRepository) : ViewModel() {
 
-    private var cityLiveData = MutableLiveData<City>()
-    private var citiesLiveData = MutableLiveData<List<TodayWeather>>()
+    private var _cityLiveData = MutableLiveData<City>()
+    val cityLiveData: LiveData<City> get() = _cityLiveData
+
+    private var _citiesLiveData = MutableLiveData<List<TodayWeather>>()
+    val citiesLiveData: LiveData<List<TodayWeather>> get() = _citiesLiveData
+    private var _connectionError =  MutableLiveData(false)
+    val connectionError: LiveData<Boolean> get() = _connectionError
+
 
     private var listOfCitiesToSearch: List<String> = listOf(
         "Berlin",
@@ -35,9 +40,11 @@ class CityViewModel @Inject constructor(private val repository: WeatherRepositor
             try {
                 val response = repository.getCityDetails(cityName)
                 val data: City = response.body()!!
-                cityLiveData.postValue(data)
+                _cityLiveData.postValue(data)
+                _connectionError.value = false
             } catch(e: Exception) {
-                throw RuntimeException("Api call failed : ${e.message}", e)
+                _connectionError.value = true
+             //   throw RuntimeException("Api call failed : ${e.message}", e)
             }
         }
     }
@@ -48,20 +55,14 @@ class CityViewModel @Inject constructor(private val repository: WeatherRepositor
                 listOfCitiesToSearch.map {
                     val response = repository.getCurrentWeather(it, "no")
                     cityList.add(response.body()!!)
+                    _connectionError.value = false
                 }
-                citiesLiveData.postValue(cityList)
+                _citiesLiveData.postValue(cityList)
             } catch (e: Exception) {
-                throw RuntimeException("Api call failed : ${e.message}", e)
+                _connectionError.value = true
+            //    throw RuntimeException("Api call failed : ${e.message}", e)
             }
         }
-    }
-
-    fun observeCityLiveData(): LiveData<City> {
-        return cityLiveData
-    }
-
-    fun observeCitiesLiveData() : LiveData<List<TodayWeather>> {
-        return citiesLiveData
     }
 
 }

@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.goldbach.weatherapp.R
-import br.goldbach.weatherapp.data.model.ForecastWeather
+import br.goldbach.weatherapp.data.model.Hour
 import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -21,7 +21,7 @@ import kotlin.math.roundToInt
 @InstallIn(ActivityComponent::class)
 @Module
 class ForecastTodayAdapter @Inject constructor(
-    private var forecastHours: List<ForecastWeather.Forecast.Forecastday.Hour?>?,
+    private var forecastHours: List<Hour?>?,
     @ActivityContext private val context: Context
 ) : RecyclerView.Adapter<ForecastTodayAdapter.ViewHolder>() {
 
@@ -56,7 +56,7 @@ class ForecastTodayAdapter @Inject constructor(
         return 24
     }
 
-    fun update(hours: List<ForecastWeather.Forecast.Forecastday.Hour?>?) {
+    fun update(hours: List<Hour?>?) {
         this.forecastHours = hours
         notifyDataSetChanged()
     }

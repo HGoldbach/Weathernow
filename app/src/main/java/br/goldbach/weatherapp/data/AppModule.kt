@@ -1,7 +1,8 @@
 package br.goldbach.weatherapp.data
 
 import br.goldbach.weatherapp.data.model.City
-import br.goldbach.weatherapp.data.model.ForecastWeather
+import br.goldbach.weatherapp.data.model.Day
+import br.goldbach.weatherapp.data.model.Hour
 import br.goldbach.weatherapp.data.model.TodayWeather
 import br.goldbach.weatherapp.data.repository.WeatherRepository
 import br.goldbach.weatherapp.data.repository.WeatherRepositoryImpl
@@ -35,12 +36,12 @@ object AppModule {
     }
 
     @Provides
-    fun provideForecastDayHours() : List<ForecastWeather.Forecast.Forecastday.Hour> {
+    fun provideForecastDayHours() : List<Hour> {
         return ArrayList()
     }
 
     @Provides
-    fun provideForecastDays() : List<ForecastWeather.Forecast.Forecastday.Day> {
+    fun provideForecastDays() : List<Day> {
         return ArrayList()
     }
 

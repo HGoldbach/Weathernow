@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observerWeekForecast() {
-        mainViewModel.observerForecastWeekLiveData().observe(this) {
+        mainViewModel.forecastWeekLiveData.observe(this) {
             setWeekForecastAdapter(it)
         }
     }
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observerTodayForecast() {
-        mainViewModel.observerForecastTodayLiveData().observe(this@MainActivity) {
+        mainViewModel.forecastTodayLiveData.observe(this@MainActivity) {
             setTodayForecastAdapter(it)
         }
     }
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun observerTodayWeather() {
-        mainViewModel.observerTodayWeatherLiveData().observe(this@MainActivity) {
+        mainViewModel.todayWeatherLiveData.observe(this@MainActivity) {
             runOnUiThread {
                 setTodayWeatherUi(it)
             }
