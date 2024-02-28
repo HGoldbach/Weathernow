@@ -44,7 +44,6 @@ class CityViewModel @Inject constructor(private val repository: WeatherRepositor
                 _connectionError.value = false
             } catch(e: Exception) {
                 _connectionError.value = true
-             //   throw RuntimeException("Api call failed : ${e.message}", e)
             }
         }
     }
@@ -60,7 +59,6 @@ class CityViewModel @Inject constructor(private val repository: WeatherRepositor
                 _citiesLiveData.postValue(cityList)
             } catch (e: Exception) {
                 _connectionError.value = true
-            //    throw RuntimeException("Api call failed : ${e.message}", e)
             }
         }
     }

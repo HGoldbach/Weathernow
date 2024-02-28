@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Mafra"
+        android:text="@string/city_name_default"
         android:textColor="@color/white"
         android:textSize="16sp" />
 
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Brazil"
+        android:text="@string/country_name_default"
         android:textAlignment="viewEnd"
         android:textColor="@color/white"
         android:textSize="16sp" />

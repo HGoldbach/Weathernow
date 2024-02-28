@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="18:00"
+        android:text="@string/hour_default"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,14 +25,15 @@
         app:layout_constraintEnd_toEndOf="@+id/forecastTimeTxt"
         app:layout_constraintStart_toStartOf="@+id/forecastTimeTxt"
         app:layout_constraintTop_toBottomOf="@+id/forecastTimeTxt"
-        app:srcCompat="@drawable/cloud" />
+        app:srcCompat="@drawable/cloud"
+        android:contentDescription="@string/temp_icon" />
 
     <TextView
         android:id="@+id/forecastTempTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="20°"
+        android:text="@string/temp_default"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -50,14 +51,15 @@
         app:layout_constraintEnd_toStartOf="@+id/forecastHumidityTxt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forecastTempTxt"
-        app:srcCompat="@drawable/humidity" />
+        app:srcCompat="@drawable/humidity"
+        android:contentDescription="@string/humidity_icon" />
 
     <TextView
         android:id="@+id/forecastHumidityTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="14%"
+        android:text="@string/humidity_default"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">WeatherApp</string>
+    <string name="app_name">Weathernow</string>
+    <string name="temp_default">0º</string>
+    <string name="date_default">Tue, February 27 19:10</string>
+    <string name="city_name_default">Mafra</string>
+    <string name="back_button">Back Button</string>
+    <string name="wallpaper_background">wallpaper_background</string>
+    <string name="temp_icon">temp icon</string>
+    <string name="temp_situation_default">Fog</string>
+    <string name="temp_sensation_default">21°</string>
+    <string name="search_your_city">Search your city</string>
+    <string name="type_your_city">type your city</string>
+    <string name="weather_in_the_world">Weather in the world</string>
+    <string name="country_name_default">Brazil</string>
+    <string name="hour_default">18:00</string>
+    <string name="humidity_icon">Humidity Icon</string>
+    <string name="humidity_default">14%</string>
+    <string name="day_default">Today</string>
+    <string name="min_max_temp_default">24°/ 17°</string>
 </resources>
